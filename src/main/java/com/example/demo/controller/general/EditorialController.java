@@ -29,7 +29,8 @@ import static com.example.demo.commons.GlobalConstans.API_EDITORIALES;;
 public class EditorialController {
 	@Autowired
 	private EditorialServiceImpl editorialServiceImpl;
-	@GetMapping
+	
+	@GetMapping("/listareditoriales")
 	public ResponseEntity<List<Editorial>> listar() {
 		try {
 		      List<Editorial> edi = editorialServiceImpl.readAll();
@@ -42,17 +43,17 @@ public class EditorialController {
 		    }
 	}
 	
-	@PostMapping
+	@PostMapping("/insertareditoriales")
     public ResponseEntity<Editorial> crear(@Valid @RequestBody Editorial editorial){
         try {
-        	Editorial _aut = editorialServiceImpl.create(editorial);
-            return new ResponseEntity<Editorial>(_aut, HttpStatus.CREATED);
+        	Editorial _edi = editorialServiceImpl.create(editorial);
+            return new ResponseEntity<Editorial>(_edi, HttpStatus.CREATED);
           } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
           }
     }
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscareditoriales/{id}")
 	public ResponseEntity<Editorial> getEditorialById(@PathVariable("id") Long id){
 		Optional<Editorial> carData = editorialServiceImpl.read(id);
 	    if (carData.isPresent()) {
@@ -61,7 +62,7 @@ public class EditorialController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminareditoriales/{id}")
 	public ResponseEntity<Editorial> delete(@PathVariable("id") Long id){
 		try {
 			editorialServiceImpl.delete(id);
@@ -70,7 +71,7 @@ public class EditorialController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/editareditoriales/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Editorial editorial){
 		Optional<Editorial> carData = editorialServiceImpl.read(id);
 	      if (carData.isPresent()) {

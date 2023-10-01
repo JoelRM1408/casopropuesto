@@ -26,10 +26,12 @@ import static com.example.demo.commons.GlobalConstans.API_LIBROS;;
 
 @RestController
 @RequestMapping(API_LIBROS)
+
 public class LibroController {
 	@Autowired
 	private LibroServiceImpl libroServiceImpl;
-	@GetMapping
+	
+	@GetMapping("/listarlibros")
 	public ResponseEntity<List<Libro>> listar() {
 		try {
 		      List<Libro> lib = libroServiceImpl.readAll();
@@ -42,7 +44,7 @@ public class LibroController {
 		    }
 	}
 	
-	@PostMapping
+	@PostMapping("/insertarlibros")
     public ResponseEntity<Libro> crear(@Valid @RequestBody Libro libro){
         try {
         	Libro _alq = libroServiceImpl.create(libro);
@@ -52,7 +54,7 @@ public class LibroController {
           }
     }
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscarlibros/{id}")
 	public ResponseEntity<Libro> getLibroById(@PathVariable("id") Long id){
 		Optional<Libro> carData = libroServiceImpl.read(id);
 	    if (carData.isPresent()) {
@@ -61,7 +63,7 @@ public class LibroController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminarlibros/{id}")
 	public ResponseEntity<Libro> delete(@PathVariable("id") Long id){
 		try {
 			libroServiceImpl.delete(id);
@@ -70,7 +72,7 @@ public class LibroController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/editarlibros/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Libro libro){
 		Optional<Libro> carData = libroServiceImpl.read(id);
 	      if (carData.isPresent()) {
@@ -82,8 +84,7 @@ public class LibroController {
 	        dblibro.setEditorial(libro.getEditorial());
 	        dblibro.setIdioma(libro.getIdioma());
 	        dblibro.setPaginas(libro.getPaginas());
-	        dblibro.setDescripcion(libro.getDescripcion());
-	        dblibro.setDescripcion(libro.getDescripcion());	        
+	        dblibro.setDescripcion(libro.getDescripcion());       
 	        
 	        return new ResponseEntity<Libro>(libroServiceImpl.update(dblibro), HttpStatus.OK);
 	      } else {

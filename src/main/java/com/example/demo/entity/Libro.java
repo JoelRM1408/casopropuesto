@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,9 +16,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,34 +33,34 @@ import lombok.NoArgsConstructor;
 public class Libro {
 	@Id
 	@Column(name = "ID_LIBRO")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLibros")
-    @SequenceGenerator(name = "seqLibros", allocationSize = 1, sequenceName = "SEQ_LIBROS")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLibro")
+    @SequenceGenerator(name = "seqLibro", allocationSize = 1, sequenceName = "SEQ_LIBRO")
     @Builder.Default
     private Long id=0L;
 	
 	@Column(name = "TITULO")
-	@NotNull @NotBlank    
+	@NotNull     
     private String titulo;
 	
-	@Column(name = "FECHA_LANZAMIENTO")	
-	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull @NotBlank  
-    private Date fechalan;
+	@Column(name = "FECHA_LANZAMIENTO")
+	@NotNull     
+    private String fechalan;
+	
 	
 	@Column(name = "IDIOMA")
-	@NotNull @NotBlank     
+	@NotNull    
     private String idioma;
 	
 	@Column(name = "PAGINAS")
-	@NotNull @NotBlank     
-    private int paginas;
+	@NotNull   
+    private Integer paginas;
 	
 	@Column(name = "DESCRIPCION")
-	@NotNull @NotBlank     
+	@NotNull     
     private String descripcion;
 	
 	@Column(name = "PORTADA")
-	@NotNull @NotBlank     
+	@NotNull     
     private String portada;
 	
 	

@@ -29,7 +29,8 @@ import static com.example.demo.commons.GlobalConstans.API_CATEGORIAS;;
 public class CategoriaController {
 	@Autowired
 	private CategoriaServiceImpl categoriaServiceImpl;
-	@GetMapping
+	
+	@GetMapping("/listarcategorias")
 	public ResponseEntity<List<Categoria>> listar() {
 		try {
 		      List<Categoria> cat = categoriaServiceImpl.readAll();
@@ -42,7 +43,7 @@ public class CategoriaController {
 		    }
 	}
 	
-	@PostMapping
+	@PostMapping("/insertarcategorias")
     public ResponseEntity<Categoria> crear(@Valid @RequestBody Categoria categoria){
         try {
         	Categoria _cat = categoriaServiceImpl.create(categoria);
@@ -52,7 +53,7 @@ public class CategoriaController {
           }
     }
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscarcategoria/{id}")
 	public ResponseEntity<Categoria> getCategoriaById(@PathVariable("id") Long id){
 		Optional<Categoria> carData = categoriaServiceImpl.read(id);
 	    if (carData.isPresent()) {
@@ -61,7 +62,7 @@ public class CategoriaController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminarcategoria/{id}")
 	public ResponseEntity<Categoria> delete(@PathVariable("id") Long id){
 		try {
 			categoriaServiceImpl.delete(id);
@@ -70,7 +71,7 @@ public class CategoriaController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/editarcategoria/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Categoria categoria){
 		Optional<Categoria> carData = categoriaServiceImpl.read(id);
 	      if (carData.isPresent()) {

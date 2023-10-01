@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,9 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,15 +32,13 @@ public class Alquiler {
     @Builder.Default
     private Long id=0L;
 	
-	@Column(name = "FECHA_SALIDA")	
-	@Temporal(TemporalType.TIMESTAMP)
-	@NotBlank @NotNull
-    private Date fechasa;
+	@Column(name = "FECHA_SALIDA")
+	@NotNull     
+    private String fechasa;
 	
-	@Column(name = "FECHA_ENTRADA")	
-	@Temporal(TemporalType.TIMESTAMP)
-	@NotBlank @NotNull
-    private Date fechaen;
+	@Column(name = "FECHA_ENTRADA")
+	@NotNull     
+    private String fechaen;
 
 	@ManyToOne
     @JoinColumn(name="LIBRO_ID", nullable = false)

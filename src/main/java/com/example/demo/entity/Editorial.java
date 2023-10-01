@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,12 +30,12 @@ import lombok.NoArgsConstructor;
 public class Editorial {
 	@Id
 	@Column(name = "ID_EDITORIAL")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqEditoriales")
-    @SequenceGenerator(name = "seqEditoriales", allocationSize = 1, sequenceName = "SEQ_EDITORIALES")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqEditorial")
+    @SequenceGenerator(name = "seqEditorial", allocationSize = 1, sequenceName = "SEQ_EDITORIAL")
     @Builder.Default
     private Long id=0L;
 	@Column(name = "EDITORIAL")
-	@NotNull @NotBlank    
+	@NotNull     
     private String editorial;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "editorial")

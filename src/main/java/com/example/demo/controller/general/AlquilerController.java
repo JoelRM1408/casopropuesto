@@ -29,7 +29,8 @@ import static com.example.demo.commons.GlobalConstans.API_ALQUILERES;
 public class AlquilerController {
 	@Autowired
 	private AlquilerServiceImpl alquilerServiceImpl;
-	@GetMapping
+	
+	@GetMapping("/listaralquileres")
 	public ResponseEntity<List<Alquiler>> listar() {
 		try {
 		      List<Alquiler> alq = alquilerServiceImpl.readAll();
@@ -42,7 +43,7 @@ public class AlquilerController {
 		    }
 	}
 	
-	@PostMapping
+	@PostMapping("/insertaralquileres")
     public ResponseEntity<Alquiler> crear(@Valid @RequestBody Alquiler alquiler){
         try {
         	Alquiler _alq = alquilerServiceImpl.create(alquiler);
@@ -52,7 +53,7 @@ public class AlquilerController {
           }
     }
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscaralquileres/{id}")
 	public ResponseEntity<Alquiler> getAlquilerById(@PathVariable("id") Long id){
 		Optional<Alquiler> carData = alquilerServiceImpl.read(id);
 	    if (carData.isPresent()) {
@@ -61,7 +62,7 @@ public class AlquilerController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminaralquileres/{id}")
 	public ResponseEntity<Alquiler> delete(@PathVariable("id") Long id){
 		try {
 			alquilerServiceImpl.delete(id);
@@ -70,7 +71,7 @@ public class AlquilerController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/editaralquileres/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Alquiler alquiler){
 		Optional<Alquiler> carData = alquilerServiceImpl.read(id);
 	      if (carData.isPresent()) {

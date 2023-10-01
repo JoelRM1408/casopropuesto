@@ -29,7 +29,8 @@ import static com.example.demo.commons.GlobalConstans.API_LECTORES;;
 public class LectorController {
 	@Autowired
 	private LectorServiceImpl lectorServiceImpl;
-	@GetMapping
+	
+	@GetMapping("/listarlectores")
 	public ResponseEntity<List<Lector>> listar() {
 		try {
 		      List<Lector> lec = lectorServiceImpl.readAll();
@@ -42,7 +43,7 @@ public class LectorController {
 		    }
 	}
 	
-	@PostMapping
+	@PostMapping("/insertarlectores")
     public ResponseEntity<Lector> crear(@Valid @RequestBody Lector lector){
         try {
         	Lector _lec = lectorServiceImpl.create(lector);
@@ -52,7 +53,7 @@ public class LectorController {
           }
     }
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscarlectores/{id}")
 	public ResponseEntity<Lector> getLectorById(@PathVariable("id") Long id){
 		Optional<Lector> carData = lectorServiceImpl.read(id);
 	    if (carData.isPresent()) {
@@ -61,7 +62,7 @@ public class LectorController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminarlectores/{id}")
 	public ResponseEntity<Lector> delete(@PathVariable("id") Long id){
 		try {
 			lectorServiceImpl.delete(id);
@@ -70,7 +71,7 @@ public class LectorController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/editarlectores/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Lector lector){
 		Optional<Lector> carData = lectorServiceImpl.read(id);
 	      if (carData.isPresent()) {

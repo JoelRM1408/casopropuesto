@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,28 +30,28 @@ import lombok.NoArgsConstructor;
 public class Lector {
 	@Id
 	@Column(name = "ID_LECTOR")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLectores")
-    @SequenceGenerator(name = "seqLectores", allocationSize = 1, sequenceName = "SEQ_LECTOR")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLector")
+    @SequenceGenerator(name = "seqLector", allocationSize = 1, sequenceName = "SEQ_LECTOR")
     @Builder.Default
     private Long id=0L;
 	@Column(name = "NOMBRE")
-	@NotNull @NotBlank    
+	@NotNull     
     private String nombre;
 	
 	@Column(name = "TELEFONO")
-	@NotNull @NotBlank    
-    private int telefono;
+	@NotNull     
+    private Integer telefono;
 	
 	@Column(name = "DIRECCION")
-	@NotNull @NotBlank    
+	@NotNull     
     private String direccion;
 	
 	@Column(name = "CODIGO_POSTAL")
-	@NotNull @NotBlank    
+	@NotNull     
     private String codigopos;
 	
 	@Column(name = "OBSERVACIONES")
-	@NotNull @NotBlank    
+	@NotNull     
     private String observ;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "lector")
