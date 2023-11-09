@@ -15,6 +15,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import static com.example.demo.commons.GlobalConstans.API_LECTORES;;
 
 @RestController
 @RequestMapping(API_LECTORES)
+@CrossOrigin(origins = "http://localhost:4200/")
 public class LectorController {
 	@Autowired
 	private LectorServiceImpl lectorServiceImpl;
@@ -81,6 +83,8 @@ public class LectorController {
 	        dblector.setDireccion(lector.getDireccion());
 	        dblector.setCodigopos(lector.getCodigopos());
 	        dblector.setObserv(lector.getObserv());
+	        dblector.setAlquileres(lector.getAlquileres());
+	        
 	        return new ResponseEntity<Lector>(lectorServiceImpl.update(dblector), HttpStatus.OK);
 	      } else {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);

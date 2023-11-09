@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long>{
-
+	
 }

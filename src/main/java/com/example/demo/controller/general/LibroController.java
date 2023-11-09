@@ -15,6 +15,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ import static com.example.demo.commons.GlobalConstans.API_LIBROS;;
 
 @RestController
 @RequestMapping(API_LIBROS)
-
+@CrossOrigin(origins = "http://localhost:4200/")
 public class LibroController {
 	@Autowired
 	private LibroServiceImpl libroServiceImpl;
@@ -63,6 +64,28 @@ public class LibroController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+	
+	@GetMapping("/buscarlibrosidioma/{idioma}")
+	public ResponseEntity<List<Libro>> getLibroByIdioma(@PathVariable("idioma") String idioma){
+		List <Libro> libro = libroServiceImpl.searchLibroidioma(idioma);
+	    if (libro!=null ) {
+	      return new ResponseEntity<List<Libro>>(libro, HttpStatus.OK);
+	    } else {
+	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	@GetMapping("/buscarlibrostitulo/{titulo}")
+	public ResponseEntity<List<Libro>> getLibroByTitulo(@PathVariable("titulo") String titulo){
+		List <Libro> libro = libroServiceImpl.searchLibrotitulo(titulo);
+	    if (libro!=null ) {
+	      return new ResponseEntity<List<Libro>>(libro, HttpStatus.OK);
+	    } else {
+	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	
 	@DeleteMapping("/eliminarlibros/{id}")
 	public ResponseEntity<Libro> delete(@PathVariable("id") Long id){
 		try {
@@ -84,7 +107,8 @@ public class LibroController {
 	        dblibro.setEditorial(libro.getEditorial());
 	        dblibro.setIdioma(libro.getIdioma());
 	        dblibro.setPaginas(libro.getPaginas());
-	        dblibro.setDescripcion(libro.getDescripcion());       
+	        dblibro.setDescripcion(libro.getDescripcion());
+	        dblibro.setAlquileres(libro.getAlquileres());
 	        
 	        return new ResponseEntity<Libro>(libroServiceImpl.update(dblibro), HttpStatus.OK);
 	      } else {

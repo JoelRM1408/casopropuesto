@@ -46,7 +46,6 @@ public class Libro {
 	@NotNull     
     private String fechalan;
 	
-	
 	@Column(name = "IDIOMA")
 	@NotNull    
     private String idioma;
@@ -62,7 +61,6 @@ public class Libro {
 	@Column(name = "PORTADA")
 	@NotNull     
     private String portada;
-	
 	
 	@ManyToOne
     @JoinColumn(name="AUTOR_ID", nullable = false)

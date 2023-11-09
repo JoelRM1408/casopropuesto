@@ -45,5 +45,13 @@ public class LibroServiceImpl implements Operaciones<Libro>{
 		// TODO Auto-generated method stub
 		return libroRepository.findAll();
 	}
+	
+	public List<Libro> searchLibroidioma(String idioma){
+		return libroRepository.findlibroByidiomaQueryNative(idioma);
+	}
+	
+	public List<Libro> searchLibrotitulo(String titulo){
+		return libroRepository.findlibroBytituloQueryNative(titulo);
+	}
 
 }

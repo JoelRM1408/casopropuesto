@@ -1,6 +1,5 @@
 package com.example.demo.controller.general;
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +14,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +26,10 @@ import static com.example.demo.commons.GlobalConstans.API_AUTORES;
 
 @RestController
 @RequestMapping(API_AUTORES)
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AutorController {
 	@Autowired
 	private AutorServiceImpl autorServiceImpl;
-	
 	
 	@GetMapping("/listarautores")
 	public ResponseEntity<List<Autor>> listar() {
@@ -63,6 +63,7 @@ public class AutorController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+	
 	@DeleteMapping("eliminarautores/{id}")
 	public ResponseEntity<Autor> delete(@PathVariable("id") Long id){
 		try {
@@ -72,12 +73,14 @@ public class AutorController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	      }
 	}
+	
 	@PutMapping("editarautores/{id}")
 	public ResponseEntity<?> updateCarrera(@PathVariable("id") Long id, @Valid @RequestBody Autor autor){
 		Optional<Autor> carData = autorServiceImpl.read(id);
 	      if (carData.isPresent()) {
 	        Autor dbautor = carData.get();
 	        dbautor.setAutor(autor.getAutor());
+	        //dbautor.setLibros(autor.getLibros());
 	        return new ResponseEntity<Autor>(autorServiceImpl.update(dbautor), HttpStatus.OK);
 	      } else {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
